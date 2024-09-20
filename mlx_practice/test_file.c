@@ -1,45 +1,73 @@
-#include "cube3d.h"
+#include "cub3d.h"
 
-void draw_triangle(mlx_image_t *image)
+void symmetry_pixels(mlx_image_t *image, int y, int x)
 {
-    int y;
-    int l;
-    int r;
+	int cx;
+	int cy;
+
+	cx = 200 / 2;
+	cy = 200 / 2;
+    printf("cx = %d\t| cy = %d | x = %d\t| y = %d\n", cx, cy, x, y);
+	// mlx_put_pixel(image, y, x, 0xFF0000FF);
+
+	mlx_put_pixel(image, cx + x, cy + y, 0xFF0000FF);
+	mlx_put_pixel(image, cx + y, cy - x, 0xFF0000FF);
+	mlx_put_pixel(image, cx + y, cy + x, 0xFF0000FF);
+	mlx_put_pixel(image, cx + x, cy - y, 0xFF0000FF);
+	mlx_put_pixel(image, cx - x, cy - y, 0xFF0000FF);
+	mlx_put_pixel(image, cx - y, cy - x, 0xFF0000FF);
+	mlx_put_pixel(image, cx - y, cy + x, 0xFF0000FF);
+	mlx_put_pixel(image, cx - x, cy + y, 0xFF0000FF);
+}
+
+void draw_circle(mlx_image_t *image, int cx, int cy)
+{
     int x;
+	int y;
+	int param;
 
-    y = 20;
-    r = l = 30;
+	x = 0;
+	y = 10;
+	param = 1 - 10;
+    mlx_put_pixel(image, cx, cy, 0x000000FF);
+    symmetry_pixels(image, y, x);
+	while (x < y)
+	{
+		if (param < 0)
+		{
+			param = param + (2 * x) + 3;
+			x += 1;
+			symmetry_pixels(image, y, x);
+		}
+		else
+		{
+			param = param + (2 * (x - y)) + 5;
+			x += 1;
+			y -= 1;
+			symmetry_pixels(image, y, x);
+		}
+	}
 
-    while (y < 30)
-    {
-        x = 0;
-        while (x < 60)
-        {
-            if (x >= l && x <= r)
-                mlx_put_pixel(image, x, y, 0xFF0000FF);
-            x++;
-        }
-        l -= 1;
-        r += 1;
-        y++;
-    }
 }
 
 int main ()
 {
-    int y;
-    int x;
     mlx_t *mlx;
     mlx_image_t *image;
+    int cx, cy;
 
-    mlx = mlx_init(500, 500, "test", 0);
+    cx = 200 / 2;
+    cy = 200 / 2;
+    mlx = mlx_init(300, 300, "test", 1);
     if (!mlx)
         ft_putendl_fd("mlx_init", 2);
-    mlx_texture_t *texture = mlx_load_png("../white.png");
-    image = mlx_texture_to_image(mlx, texture);
+    image = mlx_new_image(mlx, 300, 300);
     if (!image)
         ft_putendl_fd("mlx_new_image", 2);
+    for (int y = 0; y < 300; y++)
+        for (int x = 0; x < 300; x++)
+            mlx_put_pixel(image, x, y, 0xFFFFFFFF);
+    draw_circle(image, cx, cy);
     mlx_image_to_window(mlx, image, 0, 0);
-    draw_triangle(image);
     mlx_loop(mlx);
 }
