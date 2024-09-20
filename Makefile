@@ -1,4 +1,4 @@
-NAME = cube3d
+NAME = cub3d
 
 CC = cc
 
@@ -10,16 +10,16 @@ LIBFT_DIR = lib/libft
 MLX_DIR = lib/MLX42/build
 
 
-INCLUDE = -Ilib/libft -Ilib/MLX42/include/MLX42
-LINKIN_LIB = -L lib/libft -lft -L lib/MLX42/build -lMLX42  -ldl -lglfw -pthread -lm
+INCLUDE = -I lib/libft -Ilib/MLX42/include/MLX42
+LINKIN_LIB = -Llib/libft -lft -Llib/MLX42/build -lMLX42 -L/Users/$(USER)/.brew/opt/glfw/lib -lglfw
 
-M_SRC = cube3d.c
+M_SRC = cub3d.c
 
 M_OBJECT = $(M_SRC:%.c=%.o)
 
 all: $(LIBFT_DIR) $(MLX_DIR) $(NAME)
 
-%.o: %.c cube3d.h
+%.o: %.c cub3d.h
 	$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 
 $(MLX_DIR):
@@ -39,8 +39,10 @@ clean:
 	$(REMOVE) $(M_OBJECT)
 
 fclean: clean
+	make -C lib/libft fclean
 	$(REMOVE) $(NAME)
 	$(REMOVE) $(MLX_DIR)
+
 re : fclean all
 
 .PHONY: lib/libft clean
