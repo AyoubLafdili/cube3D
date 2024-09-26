@@ -13,7 +13,8 @@ MLX_DIR = lib/MLX42/build
 INCLUDE = -I lib/libft -Ilib/MLX42/include/MLX42
 LINKIN_LIB = -Llib/libft -lft -Llib/MLX42/build -lMLX42 -L/Users/$(USER)/.brew/opt/glfw/lib -lglfw
 
-M_SRC = cub3d.c
+M_SRC = cub3d.c draw_circle.c draw_line.c utils.c player_movement.c \
+		draw_map.c
 
 M_OBJECT = $(M_SRC:%.c=%.o)
 
@@ -32,7 +33,7 @@ $(LIBFT_DIR):
 
 
 $(NAME): $(M_OBJECT)
-	$(CC) $(FLAGS)  $< -o $@ $(LINKIN_LIB)
+	$(CC) $(FLAGS) $(M_OBJECT) -o $@ $(LINKIN_LIB)
 
 clean:
 	make -C lib/libft clean

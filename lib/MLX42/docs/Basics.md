@@ -125,7 +125,7 @@ int32_t	main(void)
 		ft_error();
 
 	// Even after the image is being displayed, we can still modify the buffer.
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+	mlx_put_pixel(img, 0, 0, red);
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!

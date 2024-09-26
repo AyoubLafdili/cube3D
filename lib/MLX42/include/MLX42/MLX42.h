@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   MLX42.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:23:19 by ntamayo-      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   MLX42.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
+/*   Updated: 2024/09/20 09:58:26 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -845,7 +845,7 @@ void mlx_put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
  * @param[in] width The desired width of the image.
  * @param[in] height The desired height of the image.
  * @return Pointer to the image buffer, if it failed to allocate then NULL.
- */
+ */ 
 mlx_image_t* mlx_new_image(mlx_t* mlx, uint32_t width, uint32_t height);
 
 /**
