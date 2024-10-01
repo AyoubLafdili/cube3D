@@ -18,33 +18,33 @@
 
 #ifndef CUB3D_H
 #define CUB3D_H
-
-#define WINDOW_HEIGHT 60 * 9
-#define WINDOW_WIDHT 60 * 7
-#define FOV (60 * M_PI / 180)
+#define TILE_SIZE 60
+#define WINDOW_HEIGHT (TILE_SIZE * 9)
+#define WINDOW_WIDHT (TILE_SIZE * 7)
+#define FOV (60 * (M_PI / 180))
 
 typedef enum e_direction
 {
-	M_UP ,
-	M_DOWN ,
-	M_RIGHT ,
-	M_LEFT,
+	UP ,
+	DOWN ,
+	RIGHT ,
+	LEFT,
 	T_LEFT,
 	T_RIGHT
 }   t_direction;
 
 typedef enum e_color
 {
-	red = 0xFF0000FF,
-	blue = 0x0727f7FF,
-	black = 0x000000FF,
-	white = 0xFFFFFFFF,
+	RED = 0xFF0000FF,
+	BLUE = 0x0727f7FF,
+	BLACK = 0x000000FF,
+	WHITE = 0xFFFFFFFF,
 }   t_color;
 
 typedef struct s_coordinates
 {
-	int x;
-	int y;
+	double x;
+	double y;
 }   t_crd;
 
 typedef struct s_line
@@ -67,20 +67,30 @@ typedef struct s_player
 	double		rt_angel;
 }   t_player;
 
+typedef struct s_rays
+{
+	bool is_vertical_hit;
+	double	distance;
+	t_crd	hit_crd;
+}	t_ray;
+
 typedef struct s_cube
 {
 	char **map;
 	t_player player;
 	mlx_image_t *map_i;
+	t_ray rays[WINDOW_WIDHT];
 	mlx_t *mlx;
+
 }   t_cube;
 
+void init_line(t_cube *data, t_line *line, double angle);
 void player_moves(mlx_key_data_t keydata, void *param);
-void draw_line(t_cube *data, t_line *line);
+void draw_line(t_cube *data, t_line *ln);
 void rerendere_map(t_cube *data);
+void check_angel(double *angle);
 void draw_circle(t_cube *data);
-void check_angel(t_cube *data);
-void ft_swap(int *x, int *y);
+void ft_swap(double *x, double *y);
 void draw_map(t_cube *data);
 int ft_sign(int nb);
 

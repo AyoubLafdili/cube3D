@@ -1,0 +1,7 @@
+/Users/alafdili/cube3D/build/CMakeFiles/mlx42.dir
+/Users/alafdili/cube3D/build/CMakeFiles/edit_cache.dir
+/Users/alafdili/cube3D/build/CMakeFiles/rebuild_cache.dir
+/Users/alafdili/cube3D/build/CMakeFiles/list_install_components.dir
+/Users/alafdili/cube3D/build/CMakeFiles/install.dir
+/Users/alafdili/cube3D/build/CMakeFiles/install/local.dir
+/Users/alafdili/cube3D/build/CMakeFiles/install/strip.dir

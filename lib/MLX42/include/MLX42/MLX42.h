@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/09/20 09:58:26 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/09/27 21:52:54 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -698,7 +698,7 @@ mlx_win_cursor_t* mlx_create_cursor(mlx_texture_t* texture);
  */
 void mlx_destroy_cursor(mlx_win_cursor_t* cursor);
 
-/**
+/**./c
  * Sets the current cursor to the given custom cursor. 
  * 
  * @param[in] mlx The MLX instance handle.

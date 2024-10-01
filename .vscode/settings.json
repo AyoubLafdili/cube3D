@@ -4,7 +4,8 @@
     "stdio.h": "c",
     "stdbool.h": "c",
     "libft.h": "c",
-    "__node_handle": "c"
+    "__node_handle": "c",
+    "math.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "clang",
   "C_Cpp_Runner.cppCompilerPath": "clang++",

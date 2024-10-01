@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:11:38 by alafdili          #+#    #+#             */
-/*   Updated: 2024/09/25 17:29:36 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/09/27 22:47:53 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void draw_cub(t_cube *data, int map_y, int map_x, int color)
 
 	y = x = 0;
 	save = map_x;
-	while (y < 60)
+	while (y < TILE_SIZE)
 	{
 		x = 0;
 		map_x = save;
-		while (x < 60)
+		while (x < TILE_SIZE)
 		{
 			mlx_put_pixel(data->map_i, map_x, map_y, color);
 			x++;
@@ -41,17 +41,17 @@ void check_player_view(t_cube *data, int x, int y)
 	static bool angle_update;
 
 	if (data->map[y][x] == 'N' && !angle_update)
-		data->player.rt_angel = 3 * M_PI / 2;
+		data->player.rt_angel = 3 * M_PI_2;
 	else if (data->map[y][x] == 'S' && !angle_update)
-		data->player.rt_angel = M_PI / 2;
+		data->player.rt_angel = M_PI_2;
 	else if (data->map[y][x] == 'E' && !angle_update)
 		data->player.rt_angel = 0;
 	else if (data->map[y][x] == 'W' && !angle_update)
 		data->player.rt_angel = M_PI;
-	draw_cub(data, y * 60, x * 60, white);
+	draw_cub(data, y * TILE_SIZE, x * TILE_SIZE, WHITE);
 	data->player.circle.radius = 4;
-	data->player.p_crd.x = x * 60 + (60 / 2);
-	data->player.p_crd.y = y * 60 + (60 / 2);
+	data->player.p_crd.x = x * TILE_SIZE + (TILE_SIZE / 2);
+	data->player.p_crd.y = y * TILE_SIZE + (TILE_SIZE / 2);
 	angle_update = true;
 }
 
@@ -73,9 +73,9 @@ void draw_map(t_cube *data)
 		while (data->map[y][x])
 		{
 			if (data->map[y][x] == '1')
-				draw_cub(data, y * 60, x * 60 , black);
+				draw_cub(data, y * TILE_SIZE, x * TILE_SIZE , BLACK);
 			else if (data->map[y][x] == '0')
-				draw_cub(data, y * 60, x * 60, white);
+				draw_cub(data, y * TILE_SIZE, x * TILE_SIZE, WHITE);
 			else
 				check_player_view(data, x, y);
 			x++;

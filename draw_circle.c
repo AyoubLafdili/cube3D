@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:47:06 by alafdili          #+#    #+#             */
-/*   Updated: 2024/09/22 16:10:15 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/09/26 10:59:41 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void symmetry_pixels(t_cube *data, int y, int x)
 	cy = data->player.circle.center.y;
 	while (y >= 0)
 	{
-		mlx_put_pixel(data->map_i, cx + x, cy + y, red);
-		mlx_put_pixel(data->map_i, cx + y, cy + x, red);
-		mlx_put_pixel(data->map_i, cx + y, cy - x, red);
-		mlx_put_pixel(data->map_i, cx + x, cy - y, red);
-		mlx_put_pixel(data->map_i, cx - x, cy - y, red);
-		mlx_put_pixel(data->map_i, cx - y, cy - x, red);
-		mlx_put_pixel(data->map_i, cx - y, cy + x, red);
-		mlx_put_pixel(data->map_i, cx - x, cy + y, red);
+		mlx_put_pixel(data->map_i, cx + x, cy + y, RED);
+		mlx_put_pixel(data->map_i, cx + y, cy + x, RED);
+		mlx_put_pixel(data->map_i, cx + y, cy - x, RED);
+		mlx_put_pixel(data->map_i, cx + x, cy - y, RED);
+		mlx_put_pixel(data->map_i, cx - x, cy - y, RED);
+		mlx_put_pixel(data->map_i, cx - y, cy - x, RED);
+		mlx_put_pixel(data->map_i, cx - y, cy + x, RED);
+		mlx_put_pixel(data->map_i, cx - x, cy + y, RED);
 		y--;
 	}
 }

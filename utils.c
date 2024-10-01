@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:05:04 by alafdili          #+#    #+#             */
-/*   Updated: 2024/09/25 15:36:35 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:12:06 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@ int ft_sign(int nb)
 	return (0);
 }
 
-void ft_swap(int *x, int *y)
+void ft_swap(double *x, double *y)
 {
-	int tmp;
+	double tmp;
 
 	tmp = *x;
 	*x = *y;
 	*y = tmp;	
 }
 
-void check_angel(t_cube *data)
+void check_angel(double *angle)
 {
-	if (data->player.rt_angel > 2 * M_PI)
-		data->player.rt_angel = 0;
-	if (data->player.rt_angel < 0)
-		data->player.rt_angel = 2 * M_PI;
+	*angle = fmod(*angle, 2 * M_PI);
+	if (*angle < 0)
+		*angle += 2 * M_PI;
 }

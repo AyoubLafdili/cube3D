@@ -10,14 +10,14 @@ void symmetry_pixels(mlx_image_t *image, int y, int x)
     printf("cx = %d\t| cy = %d | x = %d\t| y = %d\n", cx, cy, x, y);
 	// mlx_put_pixel(image, y, x, red);
 
-	mlx_put_pixel(image, cx + x, cy + y, red);
-	mlx_put_pixel(image, cx + y, cy - x, red);
-	mlx_put_pixel(image, cx + y, cy + x, red);
-	mlx_put_pixel(image, cx + x, cy - y, red);
-	mlx_put_pixel(image, cx - x, cy - y, red);
-	mlx_put_pixel(image, cx - y, cy - x, red);
-	mlx_put_pixel(image, cx - y, cy + x, red);
-	mlx_put_pixel(image, cx - x, cy + y, red);
+	mlx_put_pixel(image, cx + x, cy + y, RED);
+	mlx_put_pixel(image, cx + y, cy - x, RED);
+	mlx_put_pixel(image, cx + y, cy + x, RED);
+	mlx_put_pixel(image, cx + x, cy - y, RED);
+	mlx_put_pixel(image, cx - x, cy - y, RED);
+	mlx_put_pixel(image, cx - y, cy - x, RED);
+	mlx_put_pixel(image, cx - y, cy + x, RED);
+	mlx_put_pixel(image, cx - x, cy + y, RED);
 }
 
 void draw_circle(mlx_image_t *image, int cx, int cy)
@@ -29,7 +29,7 @@ void draw_circle(mlx_image_t *image, int cx, int cy)
 	x = 0;
 	y = 10;
 	param = 1 - 10;
-    mlx_put_pixel(image, cx, cy, black);
+    mlx_put_pixel(image, cx, cy, BLACK);
     symmetry_pixels(image, y, x);
 	while (x < y)
 	{
@@ -66,7 +66,7 @@ int main ()
         ft_putendl_fd("mlx_new_image", 2);
     for (int y = 0; y < 300; y++)
         for (int x = 0; x < 300; x++)
-            mlx_put_pixel(image, x, y, white);
+            mlx_put_pixel(image, x, y, WHITE);
     draw_circle(image, cx, cy);
     mlx_image_to_window(mlx, image, 0, 0);
     mlx_loop(mlx);

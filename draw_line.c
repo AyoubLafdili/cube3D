@@ -6,34 +6,26 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:49:25 by alafdili          #+#    #+#             */
-/*   Updated: 2024/09/26 10:37:20 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:21:42 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_line(t_cube *data, t_line *line)
-{
-	line->start.x = data->player.circle.center.x;
-	line->start.y = data->player.circle.center.y;
-	line->end.x = line->start.x + 25 * cos(data->player.rt_angel); 
-	line->end.y = line->start.y + 25 * sin(data->player.rt_angel); 
-}
-
 void l_than_one(t_cube *data, t_crd start, t_crd end)
 {
-	int		dy;
-	int		dx;
-	t_crd	sign;
-	int		d_param;
+	double		dy;
+	double		dx;
+	t_crd		sign;
+	double		d_param;
 
-	dy = abs(end.y - start.y);
-	dx = abs(end.x - start.x);
+	dy = fabs(end.y - start.y);
+	dx = fabs(end.x - start.x);
 	sign.y = ft_sign(end.y - start.y);
 	sign.x = ft_sign(end.x - start.x);
 	d_param = 2 * dy - dx;
-	mlx_put_pixel(data->map_i, start.x, start.y, blue);
-	while (start.x < end.x)
+	mlx_put_pixel(data->map_i, start.x, start.y, BLUE);
+	while (start.x <= end.x)
 	{
 		start.x += sign.x;
 		if (d_param < 0)
@@ -43,24 +35,24 @@ void l_than_one(t_cube *data, t_crd start, t_crd end)
 			start.y += sign.y;
 			d_param += (2 * dy) - (2 * dx);
 		}
-		mlx_put_pixel(data->map_i, start.x, start.y, blue);
+		mlx_put_pixel(data->map_i, start.x, start.y, BLUE);
 	}
 }
 
 void g_than_one(t_cube *data, t_crd start, t_crd end)
 {
-	int dy;
-	int dx;
+	double dy;
+	double dx;
 	t_crd sign;
-	int d_param;
+	double d_param;
 
-	dy = abs(end.y - start.y);
-	dx = abs(end.x - start.x);
+	dy = fabs(end.y - start.y);
+	dx = fabs(end.x - start.x);
 	sign.y = ft_sign(end.y - start.y);
 	sign.x = ft_sign(end.x - start.x);
 	d_param = 2 * dy - dx;
-	mlx_put_pixel(data->map_i, start.y, start.x, blue);
-	while (start.x < end.x)
+	mlx_put_pixel(data->map_i, start.y, start.x, BLUE);
+	while (start.x <= end.x)
 	{
 		start.x += sign.x;
 		if (d_param < 0)
@@ -70,21 +62,20 @@ void g_than_one(t_cube *data, t_crd start, t_crd end)
 			start.y += sign.y;
 			d_param += (2 * dy) - (2 * dx);
 		}
-		mlx_put_pixel(data->map_i, start.y, start.x, blue);
+		mlx_put_pixel(data->map_i, start.y, start.x, BLUE);
 	}
 }
 
 
 void draw_line(t_cube *data, t_line *ln)
 {
-	int dy;
-	int dx;
-	float slope;
+	double dy;
+	double dx;
+	double slope;
 
-	init_line(data, ln);
 	dy = ln->end.y - ln->start.y;
 	dx = ln->end.x - ln->start.x;
-	slope = fabs(dy / (float)dx);
+	slope = fabs(dy / dx);
 	if (slope < 1)
 	{
 		if (ln->start.x > ln->end.x)
