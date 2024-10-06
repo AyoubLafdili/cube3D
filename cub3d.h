@@ -19,9 +19,8 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 #define TILE_SIZE 60
-#define MAP_SCALE 0.2 * TILE_SIZE
 #define WINDOW_HEIGHT (TILE_SIZE * 9)
-#define WINDOW_WIDHT (TILE_SIZE * 27)
+#define WINDOW_WIDHT (TILE_SIZE * 7)
 #define FOV (60 * (M_PI / 180))
 
 typedef enum e_direction
@@ -79,13 +78,13 @@ typedef struct s_cube
 {
 	char **map;
 	t_player player;
-	mlx_image_t *mini_map;
-	mlx_image_t *_3d_map;
+	mlx_image_t *map_i;
 	t_ray rays[WINDOW_WIDHT];
 	mlx_t *mlx;
 
 }   t_cube;
 
+void init_line(t_cube *data, t_line *line, double angle);
 void player_moves(mlx_key_data_t keydata, void *param);
 void draw_line(t_cube *data, t_line *ln);
 void rerendere_map(t_cube *data);

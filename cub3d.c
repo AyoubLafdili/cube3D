@@ -131,71 +131,42 @@ void cast_rays(t_cube *data)
 		horz = horizontal_intersection(data, data->player, ray_angle);
 		vrtcl = vertical_intersection(data, data->player, ray_angle);
 		save_ray_attribute(data->player.circle.center, horz, vrtcl, &data->rays[i]);
-		data->rays[i].distance *= cos(ray_angle - data->player.rt_angel);
 		ray_angle += (FOV / WINDOW_WIDHT);
 		i++;
 	}
 }
 
-void walls_drawing(t_cube *data)
-{
-	double	distance_to_pp;
-	double	wall_height;
-	int		i;
-	double	y;
-	double end;
-
-	i = 0;
-	data->_3d_map = mlx_new_image(data->mlx, WINDOW_WIDHT, WINDOW_HEIGHT);
-	distance_to_pp = (WINDOW_WIDHT / 2) / tan(FOV  / 2);
-	while (i < WINDOW_WIDHT)
-	{
-		wall_height = TILE_SIZE * distance_to_pp / data->rays[i].distance;
-		y = (WINDOW_HEIGHT / 2) - (wall_height / 2);
-		end = (WINDOW_HEIGHT / 2) + (wall_height / 2);
-		if (y < 0)
-			y = 0;
-		if (end > WINDOW_HEIGHT)
-			end = WINDOW_HEIGHT;
-		while (y < end)
-			mlx_put_pixel(data->_3d_map, i, y++, WHITE);
-
-		i++;
-	}
-	mlx_image_to_window(data->mlx, data->_3d_map, 0, 0);
-}
-
 void rerendere_map(t_cube *data)
 {
-	mlx_delete_image(data->mlx, data->mini_map);
-	mlx_delete_image(data->mlx, data->_3d_map);
+	int i;
+
+	i = 0;
+	mlx_delete_image(data->mlx, data->map_i);
+	draw_map(data);
+	draw_circle(data);
 	cast_rays(data);
-	// draw_map(data);
-	// draw_circle(data);
-	// while (i < WINDOW_WIDHT)
-	// {
-	// 	data->player.line.start = data->player.circle.center;
-	// 	data->player.line.end = data->rays[i].hit_crd;
-	// 	draw_line(data, &data->player.line);
-	// 	i++;
-	// }
-	walls_drawing(data);
-	mlx_set_instance_depth(data->_3d_map->instances, 1);
-}
+	while (i < WINDOW_WIDHT)
+	{
+		data->player.line.start = data->player.circle.center;
+		data->player.line.end = data->rays[i].hit_crd;
+		draw_line(data, &data->player.line);
+		i++;
+	}
+}  
 
 int main()
 {
 	t_cube data;
 	char *map[] = { 
-		"111111111111111111111111111",
-		"1S0000000000000000000000001",
-		"100000000010000000000000001",
-		"100000000000001000000000001",
-		"100000000000000100000000001",
-		"100000000000000000000000001",
-		"100000000000000000000000001",
-		"100000000000000000000000001",
-		"111111111111111111111111111",
+		"1111111",
+		"1S00001",
+		"1000001",
+		"1000001",
+		"1000001",
+		"1000001",
+		"1000001",
+		"1000001",
+		"1111111",
 		NULL
 		};
 	ft_memset(&data, 0, sizeof(t_cube));
@@ -203,9 +174,9 @@ int main()
 	data.mlx = mlx_init(WINDOW_WIDHT, WINDOW_HEIGHT, "cub3d", 1);
 	if (!data.mlx)
 	   printf("mlx_init");
-	data.player.rt_angel = M_PI_2;
-	data.player.circle.center.x = TILE_SIZE + (TILE_SIZE / 2);
-	data.player.circle.center.y = TILE_SIZE + (TILE_SIZE / 2);
+	draw_map(&data);
+	data.player.circle.center.x = data.player.p_crd.x;
+	data.player.circle.center.y = data.player.p_crd.y;
 	rerendere_map(&data);
 	mlx_key_hook(data.mlx, player_moves, &data);
 	mlx_loop(data.mlx);

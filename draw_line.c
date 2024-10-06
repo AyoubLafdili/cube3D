@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:49:25 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/05 17:26:38 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:21:42 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void l_than_one(t_cube *data, t_crd start, t_crd end)
 	sign.y = ft_sign(end.y - start.y);
 	sign.x = ft_sign(end.x - start.x);
 	d_param = 2 * dy - dx;
-	mlx_put_pixel(data->mini_map, start.x, start.y, BLUE);
+	mlx_put_pixel(data->map_i, start.x, start.y, BLUE);
 	while (start.x <= end.x)
 	{
 		start.x += sign.x;
@@ -35,7 +35,7 @@ void l_than_one(t_cube *data, t_crd start, t_crd end)
 			start.y += sign.y;
 			d_param += (2 * dy) - (2 * dx);
 		}
-		mlx_put_pixel(data->mini_map, start.x, start.y, BLUE);
+		mlx_put_pixel(data->map_i, start.x, start.y, BLUE);
 	}
 }
 
@@ -51,7 +51,7 @@ void g_than_one(t_cube *data, t_crd start, t_crd end)
 	sign.y = ft_sign(end.y - start.y);
 	sign.x = ft_sign(end.x - start.x);
 	d_param = 2 * dy - dx;
-	mlx_put_pixel(data->mini_map, start.y, start.x, BLUE);
+	mlx_put_pixel(data->map_i, start.y, start.x, BLUE);
 	while (start.x <= end.x)
 	{
 		start.x += sign.x;
@@ -62,7 +62,7 @@ void g_than_one(t_cube *data, t_crd start, t_crd end)
 			start.y += sign.y;
 			d_param += (2 * dy) - (2 * dx);
 		}
-		mlx_put_pixel(data->mini_map, start.y, start.x, BLUE);
+		mlx_put_pixel(data->map_i, start.y, start.x, BLUE);
 	}
 }
 
@@ -92,5 +92,4 @@ void draw_line(t_cube *data, t_line *ln)
 		else
 			g_than_one(data, ln->end, ln->start);
 	}
-
 }
