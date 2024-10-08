@@ -4,7 +4,7 @@ CC = cc
 
 REMOVE = rm -rf
 
-FLAGS = -Wall -Wextra 
+FLAGS = -Wall -Wextra -g -fsanitize=address
 
 LIBFT_DIR = lib/libft
 MLX_DIR = lib/MLX42/build
@@ -13,8 +13,9 @@ MLX_DIR = lib/MLX42/build
 INCLUDE = -I lib/libft -Ilib/MLX42/include/MLX42
 LINKIN_LIB = -Llib/libft -lft -Llib/MLX42/build -lMLX42 -L/Users/$(USER)/.brew/opt/glfw/lib -lglfw
 
-M_SRC = cub3d.c draw_circle.c draw_line.c utils.c player_movement.c \
-		draw_map.c
+M_SRC = cub3d.c mini_map/draw_circle.c mini_map/draw_line.c utils.c player_movement.c \
+		mini_map/mini_map.c ray_casting/ray_casting.c ray_casting/intersection_calc.c \
+		ray_casting/walls_drawing.c
 
 M_OBJECT = $(M_SRC:%.c=%.o)
 

@@ -6,13 +6,13 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:49:25 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/05 17:26:38 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:06:55 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void l_than_one(t_cube *data, t_crd start, t_crd end)
+void	l_than_one(t_cube *data, t_crd start, t_crd end)
 {
 	double		dy;
 	double		dx;
@@ -39,12 +39,12 @@ void l_than_one(t_cube *data, t_crd start, t_crd end)
 	}
 }
 
-void g_than_one(t_cube *data, t_crd start, t_crd end)
+void	g_than_one(t_cube *data, t_crd start, t_crd end)
 {
-	double dy;
-	double dx;
-	t_crd sign;
-	double d_param;
+	double	dy;
+	double	dx;
+	t_crd	sign;
+	double	d_param;
 
 	dy = fabs(end.y - start.y);
 	dx = fabs(end.x - start.x);
@@ -66,12 +66,11 @@ void g_than_one(t_cube *data, t_crd start, t_crd end)
 	}
 }
 
-
-void draw_line(t_cube *data, t_line *ln)
+void	draw_line(t_cube *data, t_line *ln)
 {
-	double dy;
-	double dx;
-	double slope;
+	double	dy;
+	double	dx;
+	double	slope;
 
 	dy = ln->end.y - ln->start.y;
 	dx = ln->end.x - ln->start.x;
@@ -92,5 +91,4 @@ void draw_line(t_cube *data, t_line *ln)
 		else
 			g_than_one(data, ln->end, ln->start);
 	}
-
 }

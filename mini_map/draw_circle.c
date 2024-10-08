@@ -6,16 +6,16 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:47:06 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/05 19:18:48 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:06:19 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void symmetry_pixels(t_cube *data, int y, int x)
+void	symmetry_pixels(t_cube *data, int y, int x)
 {
-	int cx;
-	int cy;
+	int	cx;
+	int	cy;
 
 	cx = data->player.circle.center.x * 0.2;
 	cy = data->player.circle.center.y * 0.2;
@@ -33,11 +33,11 @@ void symmetry_pixels(t_cube *data, int y, int x)
 	}
 }
 
-void draw_circle(t_cube *data)
+void	draw_circle(t_cube *data)
 {
-	int x;
-	int y;
-	int d_param;
+	int	x;
+	int	y;
+	int	d_param;
 
 	x = 0;
 	y = data->player.circle.radius;
