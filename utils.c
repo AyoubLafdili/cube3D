@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:05:04 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/08 18:11:00 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:30:22 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,21 @@ void	check_angel(double *angle)
 	*angle = fmod(*angle, 2 * M_PI);
 	if (*angle < 0)
 		*angle += 2 * M_PI;
+}
+
+void	swap_colors(t_color *x, t_color *y)
+{
+	t_color	tmp;
+
+	tmp = *x;
+	*x = *y;
+	*y = tmp;
+}
+
+void	wall_height_reset(int *_start_y, int *_end_y)
+{
+	if (*_start_y < 0)
+		*_start_y = 0;
+	if (*_end_y > W_HEIGHT)
+		*_end_y = W_HEIGHT;
 }

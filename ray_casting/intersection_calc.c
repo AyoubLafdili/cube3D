@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:58:32 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/08 18:23:30 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:24:51 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ t_crd	vert_intersect(t_cube *data, t_crd start, double ray_angle)
 	t_crd	intersept;
 	t_crd	delta;
 
-	intersept.x = floor(start.x / CELL_SZ) * CELL_SZ;
+	intersept.x = floor(start.x / CS) * CS;
 	if (ray_direction(ray_angle, true) == RIGHT)
-		intersept.x += CELL_SZ;
+		intersept.x += CS;
 	intersept.y = start.y + ((intersept.x - start.x) * tan(ray_angle));
-	delta.x = CELL_SZ;
+	delta.x = CS;
 	if (ray_direction(ray_angle, true) == LEFT)
 		delta.x = -delta.x;
 	delta.y = delta.x * tan(ray_angle);
@@ -45,11 +45,11 @@ t_crd	horz_intersect(t_cube *data, t_crd start, double ray_angle)
 	t_crd	intersept;
 	t_crd	delta;
 
-	intersept.y = floor(start.y / CELL_SZ) * CELL_SZ;
+	intersept.y = floor(start.y / CS) * CS;
 	if (ray_direction(ray_angle, false) == DOWN)
-		intersept.y += CELL_SZ;
+		intersept.y += CS;
 	intersept.x = start.x + ((intersept.y - start.y) / tan(ray_angle));
-	delta.y = CELL_SZ;
+	delta.y = CS;
 	if (ray_direction(ray_angle, false) == UP)
 		delta.y = -delta.y;
 	delta.x = delta.y / tan(ray_angle);

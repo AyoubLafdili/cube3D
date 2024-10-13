@@ -18,8 +18,8 @@ void	rerendere_map(t_cube *data)
 	mlx_delete_image(data->mlx, data->_3d_map);
 	mini_map(data);
 	cast_rays(data);
-	walls_drawing(data);
-	mlx_set_instance_depth(data->_3d_map->instances, 1);
+	_3d_rendering_(data);
+	mlx_image_to_window(data->mlx, data->mini_map, 0, 0);
 }
 
 int	main()
@@ -32,8 +32,8 @@ int	main()
 		"100000000000001000000000001",
 		"100000000000000100000000001",
 		"100000000000000000000000001",
-		"100000000000000000000000001",
-		"100000001111111111100000001",
+		"100000000000111111000000001",
+		"1000000011111     110000001",
 		"111111111111111111111111111",
 		NULL
 	};
@@ -43,6 +43,10 @@ int	main()
 	data.mlx = mlx_init(W_WIDHT, W_HEIGHT, "cub3d", 1);
 	if (!data.mlx)
 		printf("mlx_init");
+	textures_init(NORTH_TEXTURE, data.mtx_n);
+	textures_init(SOUTH_TEXTURE, data.mtx_s);
+	textures_init(EAST_TEXTURE, data.mtx_e);
+	textures_init(WEAST_TEXTURE, data.mtx_w);
 	rerendere_map(&data);
 	mlx_key_hook(data.mlx, player_moves, &data);
 	mlx_loop(data.mlx);

@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:43:58 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/08 18:30:26 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/13 18:42:33 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ bool	hit_check(char **map, t_crd intersept, double angle, bool is_horz)
 		intersept.y--;
 	else if (!is_horz && angle > M_PI_2 && angle < 3 * M_PI_2)
 		intersept.x--;
-	y = intersept.y / CELL_SZ;
-	x = intersept.x / CELL_SZ;
+	y = intersept.y / CS;
+	x = intersept.x / CS;
 	if (y < 9 && x < 28 && map[y][x] == '1')
 		return (true);
 	return (false);
@@ -56,12 +56,12 @@ void	save_ray_attr(t_crd player, t_crd horz, t_crd vert, t_ray *attr)
 	{
 		attr->distance = h_d;
 		attr->hit_crd = horz;
-		attr->is_vertical_hit = false;
+		attr->vert_hit = false;
 		return ;
 	}
 	attr->distance = v_d;
 	attr->hit_crd = vert;
-	attr->is_vertical_hit = true;
+	attr->vert_hit = true;
 }
 
 void	cast_rays(t_cube *data)
@@ -82,6 +82,7 @@ void	cast_rays(t_cube *data)
 		vrtcl = vert_intersect(data, data->player.circle.center, ray_angle);
 		save_ray_attr(data->player.circle.center, horz, vrtcl, &data->rays[i]);
 		data->rays[i].distance *= cos(ray_angle - data->player.rt_angel);
+		data->rays[i].angle = ray_angle;
 		ray_angle += (data->player.fov / W_WIDHT);
 		i++;
 	}

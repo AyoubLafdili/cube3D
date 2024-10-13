@@ -28,7 +28,7 @@ FUN = $(SRC_DIR)/ft_atoi.c $(SRC_DIR)/ft_lstclear.c \
 	$(SRC_DIR)/ft_lstnew.c $(SRC_DIR)/ft_lstadd_front.c \
 	$(SRC_DIR)/get_next_line.c $(SRC_DIR)/ft_isalnum.c \
 	$(SRC_DIR)/ft_bzero.c $(SRC_DIR)/ft_itoa.c \
-	$(SRC_DIR)/ft_lstdelone.c
+	$(SRC_DIR)/ft_lstdelone.c $(SRC_DIR)/ft_strcmp.c
 
 REMOVE = rm -rf
 COMPILER = cc
