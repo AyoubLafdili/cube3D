@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 09:49:25 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/08 18:06:55 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:10:43 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	l_than_one(t_cube *data, t_crd start, t_crd end)
 	sign.x = ft_sign(end.x - start.x);
 	d_param = 2 * dy - dx;
 	mlx_put_pixel(data->mini_map, start.x, start.y, BLUE);
-	while (start.x <= end.x)
+	while (start.x < end.x)
 	{
 		start.x += sign.x;
 		if (d_param < 0)
@@ -52,7 +52,7 @@ void	g_than_one(t_cube *data, t_crd start, t_crd end)
 	sign.x = ft_sign(end.x - start.x);
 	d_param = 2 * dy - dx;
 	mlx_put_pixel(data->mini_map, start.y, start.x, BLUE);
-	while (start.x <= end.x)
+	while (start.x < end.x)
 	{
 		start.x += sign.x;
 		if (d_param < 0)

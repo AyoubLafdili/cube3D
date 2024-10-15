@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:11:38 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/14 18:49:02 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:11:00 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	draw_map(t_cube *data)
 				draw_cub(data, y * 0.2 * CS, x * 0.2 * CS, BLACK);
 			else if (data->map[y][x] == '0')
 				draw_cub(data, y * 0.2 * CS, x * 0.2 * CS, T_WHITE);
+			else if (data->map[y][x] == 'D')
+				draw_cub(data, y * 0.2 * CS, x * 0.2 * CS, RED);
 			else
 				check_player_view(data, x, y);
 			x++;

@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:37:05 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/15 09:09:10 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/15 21:20:09 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	_slice_drawing(t_cube *data, double wall_height, int i)
 	ray = data->rays[i];
 	start_y = (W_HEIGHT / 2) - (wall_height / 2);
 	end_y = (W_HEIGHT / 2) + (wall_height / 2);
-	if (ray.vert_hit && ray_direction(ray.angle, true) == LEFT)
+	if (ray.door_hit)
+		wall_drawing(data, wall_height, i, data->tex_buf[4]);
+	else if (ray.vert_hit && ray_direction(ray.angle, true) == LEFT)
 		wall_drawing(data, wall_height, i, data->tex_buf[0]);
 	else if (ray.vert_hit && ray_direction(ray.angle, true) == RIGHT)
 		wall_drawing(data, wall_height, i, data->tex_buf[1]);

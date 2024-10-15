@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:43:58 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/13 18:42:33 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:10:00 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,45 @@ t_direction	ray_direction(double ray_angle, bool horz_check)
 		return (DOWN);
 }
 
-bool	hit_check(char **map, t_crd intersept, double angle, bool is_horz)
+char	hit_check(char **map, t_crd intersept, double angle, bool is_horz)
 {
 	int	y;
 	int	x;
 
-	if (is_horz && angle > M_PI && angle < 2 * M_PI)
+	if (is_horz && ray_direction(angle, false) == UP)
 		intersept.y--;
-	else if (!is_horz && angle > M_PI_2 && angle < 3 * M_PI_2)
+	else if (!is_horz && ray_direction(angle, true) == LEFT)
 		intersept.x--;
 	y = intersept.y / CS;
 	x = intersept.x / CS;
-	if (y < 9 && x < 28 && map[y][x] == '1')
-		return (true);
-	return (false);
+	if (y < 9 && x < 28 && (map[y][x] == '1'))
+		return (1);
+	if (y < 9 && x < 28 && map[y][x] == 'D')
+		return (68);
+	return (0);
 }
 
-void	save_ray_attr(t_crd player, t_crd horz, t_crd vert, t_ray *attr)
+void	save_ray_attr(t_cube *data, t_crd horz, t_crd vert, t_ray *attr)
 {
-	double	h_d;
-	double	v_d;
+	double		h_d;
+	double		v_d;
+	t_player	player;
 
-	h_d = calc_distance(player, horz);
-	v_d = calc_distance(player, vert);
+	player = data->player;
+	h_d = calc_distance(player.circle.center, horz);
+	v_d = calc_distance(player.circle.center, vert);
 	if (h_d < v_d)
 	{
-		attr->distance = h_d;
-		attr->hit_crd = horz;
+		attr->distance = h_d * cos(attr->angle - player.rt_angel);
+		attr->door_hit = is_door_hit(data->map, horz, attr->angle, true);
 		attr->vert_hit = false;
+		attr->hit_crd = horz;
 		return ;
 	}
-	attr->distance = v_d;
-	attr->hit_crd = vert;
+	attr->distance = v_d * cos (attr->angle - player.rt_angel);
+	attr->door_hit = is_door_hit(data->map, vert, attr->angle, false);
 	attr->vert_hit = true;
+	attr->hit_crd = vert;
 }
 
 void	cast_rays(t_cube *data)
@@ -78,11 +84,10 @@ void	cast_rays(t_cube *data)
 	while (i < W_WIDHT)
 	{
 		check_angel(&ray_angle);
+		data->rays[i].angle = ray_angle;
 		horz = horz_intersect(data, data->player.circle.center, ray_angle);
 		vrtcl = vert_intersect(data, data->player.circle.center, ray_angle);
-		save_ray_attr(data->player.circle.center, horz, vrtcl, &data->rays[i]);
-		data->rays[i].distance *= cos(ray_angle - data->player.rt_angel);
-		data->rays[i].angle = ray_angle;
+		save_ray_attr(data, horz, vrtcl, &data->rays[i]);
 		ray_angle += (data->player.fov / W_WIDHT);
 		i++;
 	}

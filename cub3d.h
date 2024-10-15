@@ -26,8 +26,9 @@
 # define MV_SPEED 2
 # define NORTH_TEXTURE "textures/wall.png"
 # define SOUTH_TEXTURE "textures/FLOOR_4A.PNG"
-# define EAST_TEXTURE "textures/BRICK_4A.PNG"
-# define WEAST_TEXTURE "textures/WOOD_1C.PNG"
+# define EAST_TEXTURE "textures/CONCRETE_4A.PNG"
+# define WEAST_TEXTURE "textures/CONCRETE_3C.PNG"
+# define DOOR_TEXTURE "textures/TEST_DOOR.png"
 
 typedef enum e_direction
 {
@@ -80,6 +81,7 @@ typedef struct s_player
 typedef struct s_rays
 {
 	bool	vert_hit;
+	bool	door_hit;
 	double	distance;
 	double	angle;
 	t_crd	hit_crd;
@@ -94,10 +96,11 @@ typedef struct s_cube
 	mlx_image_t	*_3d_map;
 	mlx_image_t	*mini_map;
 	t_ray		rays[W_WIDHT];
-	uint32_t	tex_buf[4][CS][CS];
+	uint32_t	tex_buf[5][CS][CS];
 }	t_cube;
 
-bool		hit_check(char **map, t_crd intersept, double angle, bool is_horz);
+char		hit_check(char **map, t_crd intersept, double angle, bool is_horz);
+bool		is_door_hit(char **map, t_crd hit, double angle, bool is_horz);
 t_crd		horz_intersect(t_cube *data, t_crd start, double ray_angle);
 t_crd		vert_intersect(t_cube *data, t_crd start, double ray_angle);
 t_direction	ray_direction(double ray_angle, bool horz_check);
@@ -109,8 +112,8 @@ void		draw_line(t_cube *data, t_line *ln);
 void		ft_swap(double *x, double *y);
 void		_3d_rendering_(t_cube *data);
 void		rerendere_map(t_cube *data);
-void		player_moves(void *param);
 void		check_angel(double *angle);
+void		player_moves(void *param);
 void		draw_circle(t_cube *data);
 void		cast_rays(t_cube *data);
 void		mini_map(t_cube *data);
