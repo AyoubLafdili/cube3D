@@ -20,10 +20,10 @@
 # include <stdbool.h>
 
 # define CS 64
-# define W_HEIGHT 800 
+# define W_HEIGHT 1000 
 # define W_WIDHT 1800
 # define RT_SPEED 2
-# define MV_SPEED 5
+# define MV_SPEED 2
 # define NORTH_TEXTURE "textures/wall.png"
 # define SOUTH_TEXTURE "textures/FLOOR_4A.PNG"
 # define EAST_TEXTURE "textures/BRICK_4A.PNG"
@@ -47,8 +47,7 @@ typedef enum e_color
 	WHITE = 0xFFFFFFFF,
 	T_WHITE = 0xFFFFFF90,
 	SKY = 0x8FC2F4FF,
-	FLOOR_0 = 0x0F0F0F30,
-	FLOOR_1 = 0x0F0F0FFF
+	FLOOR = 0x4B4C50FF
 }	t_color;
 
 typedef struct s_coordinates
@@ -86,6 +85,7 @@ typedef struct s_rays
 	t_crd	hit_crd;
 }	t_ray;
 
+
 typedef struct s_cube
 {
 	mlx_t		*mlx;
@@ -103,7 +103,6 @@ typedef struct s_cube
 bool		hit_check(char **map, t_crd intersept, double angle, bool is_horz);
 t_crd		horz_intersect(t_cube *data, t_crd start, double ray_angle);
 t_crd		vert_intersect(t_cube *data, t_crd start, double ray_angle);
-void		player_moves(mlx_key_data_t keydata, void *param);
 t_direction	ray_direction(double ray_angle, bool horz_check);
 t_direction	ray_direction(double ray_angle, bool horz_check);
 void		textures_init(char *path, uint32_t mtx[CS][CS]);
@@ -113,6 +112,7 @@ void		draw_line(t_cube *data, t_line *ln);
 void		ft_swap(double *x, double *y);
 void		_3d_rendering_(t_cube *data);
 void		rerendere_map(t_cube *data);
+void		player_moves(void *param);
 void		check_angel(double *angle);
 void		draw_circle(t_cube *data);
 void		cast_rays(t_cube *data);

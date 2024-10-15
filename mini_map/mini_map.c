@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:11:38 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/13 18:43:25 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:49:02 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	mini_map(t_cube *data)
 	data->mini_map = mlx_new_image(data->mlx, W_WIDHT * 0.2, W_HEIGHT * 0.2);
 	if (!data->mini_map)
 		return (ft_putendl_fd("Error: mlx_new_image failed!", 2));
+	mlx_image_to_window(data->mlx, data->mini_map, 0, 0);
 	draw_map(data);
 	draw_circle(data);
 	circle_or_line_init(&data->player, -1, -1);

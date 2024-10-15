@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:05:23 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/13 18:24:51 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:08:25 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,25 @@ void	moves_handler(t_cube *data, t_direction dir)
 	rerendere_map(data);
 }
 
-void	player_moves(mlx_key_data_t keydata, void *param)
+void	player_moves(void *param)
 {
 	t_cube	*data;
 
 	data = param;
-	(void)keydata;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		return (moves_handler(data, T_LEFT));
+		moves_handler(data, T_LEFT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		return (moves_handler(data, T_RIGHT));
+		moves_handler(data, T_RIGHT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_W)
 		|| mlx_is_key_down(data->mlx, MLX_KEY_UP))
-		return (moves_handler(data, UP));
+		moves_handler(data, UP);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_S)
 		|| mlx_is_key_down(data->mlx, MLX_KEY_DOWN))
-		return (moves_handler(data, DOWN));
+		moves_handler(data, DOWN);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		return (moves_handler(data, RIGHT));
+		moves_handler(data, RIGHT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		return (moves_handler(data, LEFT));
+		moves_handler(data, LEFT);
 }

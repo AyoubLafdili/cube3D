@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:37:05 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/13 18:28:17 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:42:13 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	wall_drawing(t_cube *data, double w_height, int i, uint32_t mtx[CS][CS])
 	}
 }
 
-void	_per_ray_slice_drawing(t_cube *data, double wall_height, int i)
+void	_slice_drawing(t_cube *data, double wall_height, int i)
 {
 	t_ray	ray;
 	int		end_y;
@@ -74,16 +74,16 @@ void	_per_ray_slice_drawing(t_cube *data, double wall_height, int i)
 	start_y = (W_HEIGHT / 2) - (wall_height / 2);
 	end_y = (W_HEIGHT / 2) + (wall_height / 2);
 	if (ray.vert_hit && ray_direction(ray.angle, true) == LEFT)
-		wall_drawing(data, wall_height, i, data->mtx_s);
-	else if (ray.vert_hit && ray_direction(ray.angle, true) == RIGHT)
 		wall_drawing(data, wall_height, i, data->mtx_n);
+	else if (ray.vert_hit && ray_direction(ray.angle, true) == RIGHT)
+		wall_drawing(data, wall_height, i, data->mtx_s);
 	else if (!ray.vert_hit && ray_direction(ray.angle, false) == UP)
 		wall_drawing(data, wall_height, i, data->mtx_e);
 	else
 		wall_drawing(data, wall_height, i, data->mtx_w);
 	wall_height_reset(&start_y, &end_y);
 	sky_drawing(data->_3d_map, start_y, i);
-	floor_drawing(data->_3d_map, end_y, i, (t_color [2]){BLACK, WHITE});
+	floor_drawing(data->_3d_map, end_y, i, (t_color [2]){BLACK, FLOOR});
 }
 
 void	_3d_rendering_(t_cube *data)
@@ -98,7 +98,7 @@ void	_3d_rendering_(t_cube *data)
 	while (i < W_WIDHT)
 	{
 		wall_height = CS * distance_to_pp / data->rays[i].distance;
-		_per_ray_slice_drawing(data, wall_height, i);
+		_slice_drawing(data, wall_height, i);
 		i++;
 	}
 	mlx_image_to_window(data->mlx, data->_3d_map, 0, 0);

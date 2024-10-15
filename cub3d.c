@@ -19,8 +19,10 @@ void	rerendere_map(t_cube *data)
 	mini_map(data);
 	cast_rays(data);
 	_3d_rendering_(data);
-	mlx_image_to_window(data->mlx, data->mini_map, 0, 0);
+	mlx_set_instance_depth(data->mini_map->instances, 1);
+	mlx_set_instance_depth(data->_3d_map->instances, 0);
 }
+
 
 int	main()
 {
@@ -48,7 +50,7 @@ int	main()
 	textures_init(EAST_TEXTURE, data.mtx_e);
 	textures_init(WEAST_TEXTURE, data.mtx_w);
 	rerendere_map(&data);
-	mlx_key_hook(data.mlx, player_moves, &data);
+	mlx_loop_hook(data.mlx, player_moves, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }
