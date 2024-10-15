@@ -45,10 +45,10 @@ int	main()
 	data.mlx = mlx_init(W_WIDHT, W_HEIGHT, "cub3d", 1);
 	if (!data.mlx)
 		printf("mlx_init");
-	textures_init(NORTH_TEXTURE, data.mtx_n);
-	textures_init(SOUTH_TEXTURE, data.mtx_s);
-	textures_init(EAST_TEXTURE, data.mtx_e);
-	textures_init(WEAST_TEXTURE, data.mtx_w);
+	textures_init(NORTH_TEXTURE, data.tex_buf[0]);
+	textures_init(SOUTH_TEXTURE, data.tex_buf[1]);
+	textures_init(EAST_TEXTURE, data.tex_buf[2]);
+	textures_init(WEAST_TEXTURE, data.tex_buf[3]);
 	rerendere_map(&data);
 	mlx_loop_hook(data.mlx, player_moves, &data);
 	mlx_loop(data.mlx);

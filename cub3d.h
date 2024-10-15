@@ -94,10 +94,7 @@ typedef struct s_cube
 	mlx_image_t	*_3d_map;
 	mlx_image_t	*mini_map;
 	t_ray		rays[W_WIDHT];
-	uint32_t	mtx_n[CS][CS];
-	uint32_t	mtx_s[CS][CS];
-	uint32_t	mtx_e[CS][CS];
-	uint32_t	mtx_w[CS][CS];
+	uint32_t	tex_buf[4][CS][CS];
 }	t_cube;
 
 bool		hit_check(char **map, t_crd intersept, double angle, bool is_horz);

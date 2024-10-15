@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:37:05 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/15 08:42:13 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:09:10 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	_slice_drawing(t_cube *data, double wall_height, int i)
 	start_y = (W_HEIGHT / 2) - (wall_height / 2);
 	end_y = (W_HEIGHT / 2) + (wall_height / 2);
 	if (ray.vert_hit && ray_direction(ray.angle, true) == LEFT)
-		wall_drawing(data, wall_height, i, data->mtx_n);
+		wall_drawing(data, wall_height, i, data->tex_buf[0]);
 	else if (ray.vert_hit && ray_direction(ray.angle, true) == RIGHT)
-		wall_drawing(data, wall_height, i, data->mtx_s);
+		wall_drawing(data, wall_height, i, data->tex_buf[1]);
 	else if (!ray.vert_hit && ray_direction(ray.angle, false) == UP)
-		wall_drawing(data, wall_height, i, data->mtx_e);
+		wall_drawing(data, wall_height, i, data->tex_buf[2]);
 	else
-		wall_drawing(data, wall_height, i, data->mtx_w);
+		wall_drawing(data, wall_height, i, data->tex_buf[3]);
 	wall_height_reset(&start_y, &end_y);
 	sky_drawing(data->_3d_map, start_y, i);
 	floor_drawing(data->_3d_map, end_y, i, (t_color [2]){BLACK, FLOOR});
