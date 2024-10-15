@@ -1,3 +1,4 @@
 mlx_practice/
 .vscode/
-.build/
+.DS_Store
+build/
