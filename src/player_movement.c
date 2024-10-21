@@ -6,11 +6,29 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 14:05:23 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/14 18:08:25 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:35:50 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_distance_to_door(t_cube *data)
+{
+	t_door_lst	*correspond_door;
+
+	cast_ray_door(data, &data->door_ray);
+	if (data->door_ray.distance <= 180 && data->door_ray.door_hit)
+	{
+		printf("done\n");
+		correspond_door = get_related_door(data, data->door_ray.hit_crd);
+		if (!correspond_door)
+			return ;
+		if (correspond_door->door.is_close)
+			correspond_door->door.be_open = true;
+		if (correspond_door->door.is_open)
+			correspond_door->door.be_close = true;
+	}
+}
 
 void	rotation_handler(t_cube *data, t_direction dir)
 {
@@ -49,21 +67,6 @@ void	steps_handler(t_player player, t_direction dir, t_crd *next_pst)
 	}
 }
 
-bool	check_next(char **map, int x, int y)
-{
-	if (map[y / CS][x / CS] == '1')
-		return (true);
-	else if (map[y / CS][(x + 10) / CS] == '1')
-		return (true);
-	else if (map[y / CS][(x - 10) / CS] == '1')
-		return (true);
-	else if (map[(y + 10) / CS][x / CS] == '1')
-		return (true);
-	else if (map[(y - 10) / CS][x / CS] == '1')
-		return (true);
-	return (false);
-}
-
 void	moves_handler(t_cube *data, t_direction dir)
 {
 	t_crd	next_pst;
@@ -73,12 +76,12 @@ void	moves_handler(t_cube *data, t_direction dir)
 	else
 	{
 		steps_handler(data->player, dir, &next_pst);
-		if (check_next(data->map, next_pst.x, next_pst.y))
+		if (check_next_wall(data, next_pst.x, next_pst.y)
+			|| check_next_door(data, next_pst.x, next_pst.y))
 			return ;
 		data->player.circle.center.x = next_pst.x;
 		data->player.circle.center.y = next_pst.y;
 	}
-	rerendere_map(data);
 }
 
 void	player_moves(void *param)
@@ -102,4 +105,6 @@ void	player_moves(void *param)
 		moves_handler(data, RIGHT);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		moves_handler(data, LEFT);
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
+		check_distance_to_door(data);
 }

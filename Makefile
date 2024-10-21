@@ -13,9 +13,10 @@ MLX_DIR = lib/MLX42/build
 INCLUDE = -I lib/libft -Ilib/MLX42/include/MLX42
 LINKIN_LIB = -Llib/libft -lft -Llib/MLX42/build -lMLX42 -L/Users/$(USER)/.brew/opt/glfw/lib -lglfw
 
-M_SRC = cub3d.c mini_map/draw_circle.c mini_map/draw_line.c utils.c mini_map/player_movement.c \
+M_SRC = src/cub3d.c src/player_movement.c mini_map/draw_circle.c mini_map/draw_line.c utils/utils.c \
 		mini_map/mini_map.c ray_casting/ray_casting.c ray_casting/intersection_calc.c \
-		ray_casting/walls_drawing.c ray_casting/texture_init.c
+		ray_casting/walls_drawing.c ray_casting/texture_init.c doors/open_door.c doors/door_lst.c \
+		src/collisions.c doors/door_ray_casting.c doors/close_door.c utils/ray_casting_utils.c
 
 M_OBJECT = $(M_SRC:%.c=%.o)
 

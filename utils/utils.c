@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 16:05:04 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/15 22:12:11 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:19:25 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,4 @@ void	wall_height_reset(int *_start_y, int *_end_y)
 		*_start_y = 0;
 	if (*_end_y > W_HEIGHT)
 		*_end_y = W_HEIGHT;
-}
-
-bool is_door_hit(char **map, t_crd hit, double angle, bool is_horz)
-{
-	return ((hit_check(map, hit, angle, is_horz) >> 1 != 0) && (68 != 0));
 }

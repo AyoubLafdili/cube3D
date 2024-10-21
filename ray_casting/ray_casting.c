@@ -6,44 +6,56 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 14:43:58 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/15 22:10:00 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/21 22:16:25 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	calc_distance(t_crd player, t_crd hit)
+int	check_door(t_door_lst *door, int offset)
 {
-	return (sqrt(pow(hit.x - player.x, 2) + pow(hit.y - player.y, 2)));
+	if (!door)
+		return (0);
+	if (door->door.be_open)
+	{
+		if (offset < door->door.offset)
+			return (0);
+		else
+			return (68);
+	}
+	else if (door->door.be_close)
+	{
+		if (offset > door->door.offset)
+			return (68);
+		else
+			return (0);
+	}
+	if (door->door.is_close)
+		return (68);
+	else if (door->door.is_open)
+		return (0);
+	return (68);
 }
 
-t_direction	ray_direction(double ray_angle, bool horz_check)
-{
-	if (horz_check && ray_angle > M_PI_2 && ray_angle < 3 * M_PI_2)
-		return (LEFT);
-	else if (horz_check && (ray_angle > 3 * M_PI_2 || ray_angle < M_PI_2))
-		return (RIGHT);
-	if (ray_angle > M_PI && ray_angle < 2 * M_PI)
-		return (UP);
-	else
-		return (DOWN);
-}
-
-char	hit_check(char **map, t_crd intersept, double angle, bool is_horz)
+char	hit_check(t_cube *data, t_crd inter, double angle, bool is_horz)
 {
 	int	y;
 	int	x;
+	int	offset;
 
 	if (is_horz && ray_direction(angle, false) == UP)
-		intersept.y--;
-	else if (!is_horz && ray_direction(angle, true) == LEFT)
-		intersept.x--;
-	y = intersept.y / CS;
-	x = intersept.x / CS;
-	if (y < 9 && x < 28 && (map[y][x] == '1'))
+		inter.y--;
+	if (!is_horz && ray_direction(angle, true) == LEFT)
+		inter.x--;
+	y = inter.y / CS;
+	x = inter.x / CS;
+	if (y < 9 && x < 28 && data->map[y][x] == '1')
 		return (1);
-	if (y < 9 && x < 28 && map[y][x] == 'D')
-		return (68);
+	if (y < 9 && x < 28 && data->map[y][x] == 'D')
+	{
+		offset = calc_offset(inter, is_horz);
+		return (check_door(get_related_door(data, inter), offset));
+	}
 	return (0);
 }
 
@@ -59,13 +71,13 @@ void	save_ray_attr(t_cube *data, t_crd horz, t_crd vert, t_ray *attr)
 	if (h_d < v_d)
 	{
 		attr->distance = h_d * cos(attr->angle - player.rt_angel);
-		attr->door_hit = is_door_hit(data->map, horz, attr->angle, true);
+		attr->door_hit = is_door_hit(data, horz, attr->angle, true);
 		attr->vert_hit = false;
 		attr->hit_crd = horz;
 		return ;
 	}
 	attr->distance = v_d * cos (attr->angle - player.rt_angel);
-	attr->door_hit = is_door_hit(data->map, vert, attr->angle, false);
+	attr->door_hit = is_door_hit(data, vert, attr->angle, false);
 	attr->vert_hit = true;
 	attr->hit_crd = vert;
 }

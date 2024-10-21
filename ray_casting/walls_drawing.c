@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:37:05 by alafdili          #+#    #+#             */
-/*   Updated: 2024/10/15 21:20:09 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:45:00 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ void	wall_drawing(t_cube *data, double w_height, int i, uint32_t mtx[CS][CS])
 	start_y = (W_HEIGHT / 2) - (w_height / 2);
 	end_y = (W_HEIGHT / 2) + (w_height / 2);
 	y_inc = start_y;
-	if (data->rays[i].vert_hit)
-		idx.x = (int)data->rays[i].hit_crd.y % CS;
-	else
-		idx.x = (int)data->rays[i].hit_crd.x % CS;
+	idx.x = calc_offset(data->rays[i].hit_crd, !data->rays[i].vert_hit);
 	wall_height_reset(&y_inc, &end_y);
 	while (y_inc < end_y)
 	{
@@ -85,7 +82,7 @@ void	_slice_drawing(t_cube *data, double wall_height, int i)
 		wall_drawing(data, wall_height, i, data->tex_buf[3]);
 	wall_height_reset(&start_y, &end_y);
 	sky_drawing(data->_3d_map, start_y, i);
-	floor_drawing(data->_3d_map, end_y, i, (t_color [2]){BLACK, FLOOR});
+	floor_drawing(data->_3d_map, end_y, i, (t_color [2]){BLACK, 0xc48a2eFF});
 }
 
 void	_3d_rendering_(t_cube *data)
