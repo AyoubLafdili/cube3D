@@ -1,50 +1,90 @@
-NAME = cub3d
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aaitelka <aaitelka@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/15 09:12:42 by aaitelka          #+#    #+#              #
+#    Updated: 2024/10/24 00:08:51 by aaitelka         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = cc
+GREEN := \033[0;32m
+NC := \033[0m
+LIBMLX := ./lib/MLX42
+LIBFT := ./lib/libft
+CC := cc #-g -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -Ofast
+NAME := cub3D
+BONUS := cub3D_bonus
 
-REMOVE = rm -rf
+HEADS := -I ./include -I ./bonus/include -I $(LIBFT) -I $(LIBMLX)/include/MLX42
+LIBS := $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -lglfw -ldl -pthread -lm -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-FLAGS = -Wall -Wextra -g -fsanitize=address
+SRCS := src/main.c \
+		src/parse/ft_array_utils.c \
+		src/parse/ft_parse.c \
+		src/parse/ft_parse_file.c \
+		src/parse/ft_parse_utils.c \
+		src/parse/ft_parse_map.c \
+		src/parse/ft_map_utils.c \
+		src/parse/ft_parse_color.c \
+		src/parse/ft_parse_texture.c \
+		src/parse/ft_utils.c \
+		src/parse/ft_square_it.c \
+		src/parse/ft_psp.c \
+		src/error/ft_error.c \
+		src/mini_map/draw_circle.c \
+		src/mini_map/draw_line.c \
+		src/mini_map/player_movement.c \
+		src/ray_casting/ray_casting.c \
+		src/ray_casting/intersection_calc.c \
+		src/ray_casting/walls_drawing.c \
+		src/ray_casting/utils.c \
 
-LIBFT_DIR = lib/libft
-MLX_DIR = lib/MLX42/build
+OBJS := $(SRCS:%.c=%.o)
 
+B_SRCS :=
 
-INCLUDE = -I lib/libft -Ilib/MLX42/include/MLX42
-LINKIN_LIB = -Llib/libft -lft -Llib/MLX42/build -lMLX42 -L/Users/$(USER)/.brew/opt/glfw/lib -lglfw
+B_OBJS := $(B_SRCS:%.c=%.o)
 
-M_SRC = cub3d.c mini_map/draw_circle.c mini_map/draw_line.c utils.c mini_map/player_movement.c \
-		mini_map/mini_map.c ray_casting/ray_casting.c ray_casting/intersection_calc.c \
-		ray_casting/walls_drawing.c ray_casting/texture_init.c
+all: libft libmlx $(NAME)
+# all: $(NAME)
 
-M_OBJECT = $(M_SRC:%.c=%.o)
+$(NAME): $(OBJS)
+	@echo "$(GREEN)Linking $(NAME) executable...$(NC)"
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
-all: $(LIBFT_DIR) $(MLX_DIR) $(NAME)
+bonus: libft libmlx $(BONUS)
 
-%.o: %.c cub3d.h
-	$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
+$(BONUS): $(B_OBJS) ./include/*.h
+	@echo "$(GREEN)Linking $(BONUS) executable...$(NC)"
+	$(CC) $(CFLAGS) $(B_OBJS) $(LIBS) -o $(BONUS)
 
-$(MLX_DIR):
-		@printf "\033[1;32mMLX42 BUILDING ...\033[m\n"
-		cd lib/MLX42; cmake -B build; make -sC build
+libft:
+	@$(MAKE) --no-print-directory -C $(LIBFT)
 
-$(LIBFT_DIR):
-	@printf "\033[1;32mLIBFT BUILDING ...\033[m\n"
-	@make -sC lib/libft
+libmlx:
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && \
+	make -C $(LIBMLX)/build
 
+%.o: %.c ./include/*.h
+	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
 
-$(NAME): $(M_OBJECT)
-	$(CC) $(FLAGS) $(M_OBJECT) -o $@ $(LINKIN_LIB)
-
+%_bonus.o : %_bonus.c
+	@$(CC) $(CFLAGS) $(HEADS) -o $@ -c $<
+	
 clean:
-	make -C lib/libft clean
-	$(REMOVE) $(M_OBJECT)
+	@echo "$(GREEN)Cleaning...$(NC)"
+	$(RM) $(OBJS)
+	$(RM) $(B_OBJS)
+#	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
-	make -C lib/libft fclean
-	$(REMOVE) $(NAME)
-	$(REMOVE) $(MLX_DIR)
+	@echo "$(GREEN)Full Cleaning...$(NC)"
+	$(RM) $(NAME) $(BONUS)
+#	$(RM) -rf $(LIBMLX)/build
+#	@$(MAKE) -C $(LIBFT) fclean
 
-re : fclean all
-
-.PHONY: lib/libft clean
+re: fclean all
