@@ -6,7 +6,7 @@
 /*   By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard          #+#    #+#             */
-/*   Updated: 2024/10/08 17:55:11 by alafdili         ###   ########.fr       */
+/*   Updated: 2024/10/26 19:51:10 by alafdili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -744,7 +744,7 @@ void mlx_cursor_hook(mlx_t* mlx, mlx_cursorfunc func, void* param);
  * 
  * @param[in] mlx The MLX instance handle.
  * @param[in] func The keypress callback function.
- * @param[in] param An additional optional parameter.
+ * @param[in] param An additional ƒoptional parameter.
  */
 void mlx_key_hook(mlx_t* mlx, mlx_keyfunc func, void* param);
 

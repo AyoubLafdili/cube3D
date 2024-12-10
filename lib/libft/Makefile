@@ -1,53 +1,96 @@
-NAME = libft.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: alafdili <alafdili@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/07 23:45:40 by aaitelka          #+#    #+#              #
+#    Updated: 2024/10/26 15:11:36 by alafdili         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-HEADER = libft.h
+GREEN := \033[0;32m
+NC := \033[0m
+NAME	:=	libft.a
+HEAD	:= 	libft.h
+CC		:=	cc
+CFLAGS	:=	-Wall -Wextra -Werror
+AR		:=	ar rcs
+RM		:=	rm -f
+SRCS	:=	ft_isalpha.c \
+			ft_isdigit.c \
+			ft_isalnum.c \
+			ft_isascii.c \
+			ft_isprint.c\
+			ft_strlen.c \
+			ft_toupper.c \
+			ft_tolower.c \
+			ft_strchr.c \
+			ft_strrchr.c \
+			ft_strcmp.c \
+			ft_strncmp.c \
+			ft_strlcpy.c \
+			ft_memset.c \
+			ft_bzero.c \
+			ft_memcpy.c \
+			ft_memchr.c \
+			ft_memcmp.c \
+			ft_memmove.c \
+			ft_strlcat.c \
+			ft_strnstr.c \
+			ft_atoi.c \
+			ft_calloc.c \
+			ft_strdup.c \
+			ft_substr.c \
+			ft_strjoin.c \
+			ft_strtrim.c \
+			ft_split.c \
+			ft_itoa.c \
+			ft_strmapi.c \
+			ft_striteri.c \
+			ft_putchar_fd.c \
+			ft_putstr_fd.c \
+			ft_putendl_fd.c \
+			ft_putnbr_fd.c \
+			ft_printf.c \
+			src/put_nbr.c \
+			src/put_char.c \
+			src/put_str.c \
+			src/put_hex.c \
+			get_next_line.c \
+			get_next_line_utils.c 
+BONUS	:=	ft_lstnew_bonus.c \
+			ft_lstadd_front_bonus.c \
+			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c \
+			ft_lstadd_back_bonus.c \
+			ft_lstdelone_bonus.c \
+			ft_lstclear_bonus.c \
+			ft_lstiter_bonus.c \
+			ft_lstmap_bonus.c \
 
-SRC_DIR = src
-FUN = $(SRC_DIR)/ft_atoi.c $(SRC_DIR)/ft_lstclear.c \
-	$(SRC_DIR)/ft_memchr.c $(SRC_DIR)/ft_memset.c \
-	$(SRC_DIR)/ft_strlcpy.c $(SRC_DIR)/ft_strrchr.c \
-	$(SRC_DIR)/ft_memcmp.c $(SRC_DIR)/ft_strchr.c \
-	$(SRC_DIR)/ft_strlen.c $(SRC_DIR)/ft_tolower.c \
-	$(SRC_DIR)/ft_split.c $(SRC_DIR)/ft_strmapi.c  \
-	$(SRC_DIR)/ft_calloc.c $(SRC_DIR)/ft_isdigit.c \
-	$(SRC_DIR)/ft_memcpy.c $(SRC_DIR)/ft_strdup.c \
-	$(SRC_DIR)/ft_strncmp.c $(SRC_DIR)/ft_toupper.c \
-	$(SRC_DIR)/ft_isprint.c $(SRC_DIR)/ft_memmove.c \
-	$(SRC_DIR)/ft_strlcat.c $(SRC_DIR)/ft_strnstr.c \
-	$(SRC_DIR)/ft_substr.c $(SRC_DIR)/ft_strjoin.c \
-	$(SRC_DIR)/ft_putchar.c $(SRC_DIR)/ft_putstr.c \
-	$(SRC_DIR)/ft_putnbr.c $(SRC_DIR)/ft_putunbr.c \
-	$(SRC_DIR)/ft_lstsize.c $(SRC_DIR)/ft_lstlast.c \
-	$(SRC_DIR)/ft_lstiter.c $(SRC_DIR)/ft_lstmap.c \
-	$(SRC_DIR)/ft_putstr_fd.c $(SRC_DIR)/ft_printf.c \
-	$(SRC_DIR)/ft_strtrim.c $(SRC_DIR)/ft_putchar_fd.c \
-	$(SRC_DIR)/ft_lstadd_back.c $(SRC_DIR)/ft_isalpha.c \
-	$(SRC_DIR)/ft_putendl_fd.c $(SRC_DIR)/ft_isascii.c \
-	$(SRC_DIR)/ft_striteri.c $(SRC_DIR)/ft_putnbr_fd.c \
-	$(SRC_DIR)/ft_puthexa.c  $(SRC_DIR)/ft_putaddress.c \
-	$(SRC_DIR)/ft_lstnew.c $(SRC_DIR)/ft_lstadd_front.c \
-	$(SRC_DIR)/get_next_line.c $(SRC_DIR)/ft_isalnum.c \
-	$(SRC_DIR)/ft_bzero.c $(SRC_DIR)/ft_itoa.c \
-	$(SRC_DIR)/ft_lstdelone.c
+OBJS	:=	$(SRCS:%c=%o)
 
-REMOVE = rm -rf
-COMPILER = cc
-SOBJECT = $(FUN:.c=.o)
+B_OBJS	:=	$(BONUS:%c=%o)
 
-FLAGS = -Wall -Wextra -Werror
+all		:	$(NAME)
 
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
-	$(COMPILER) -I. $(FLAGS) -o $@ -c $<
+%o		:	%c $(HEAD)
+			$(CC) $(CFLAGS) -c -o $@ $<
 
-all: $(NAME)
+$(NAME)	:	$(OBJS)
+			@echo "$(GREEN)==========| $(NAME) archived... |==========$(NC)"
+			$(AR) $(NAME) $(OBJS)
 
-$(NAME): $(SOBJECT)
-	ar -rc $(NAME) $(SOBJECT) 
+bonus	:	$(B_OBJS)
+			@echo "$(GREEN)==========| $(NAME) bonus archived... |==========$(NC)"
+			$(AR) $(NAME) $(B_OBJS)
 
-clean:
-	$(REMOVE) $(SOBJECT)
+clean	:
+			$(RM) $(OBJS) $(B_OBJS)
 
-fclean: clean
-	$(REMOVE) $(NAME)
+fclean	:	clean
+			$(RM) $(NAME)
 
-re:  fclean all
+re		:	fclean all
