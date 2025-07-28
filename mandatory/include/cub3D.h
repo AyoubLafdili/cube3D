@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <MLX42.h>
 # include <fcntl.h>
+# include <limits.h>
 
 # define EMFEMPTY "File is empty"
 # define ETXAE "texture already exists"
